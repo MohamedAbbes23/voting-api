@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const { addToken, isValid } = require('../utils/tokenStore');
 
 
-// Register Route
+
 router.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
