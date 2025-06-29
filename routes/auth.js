@@ -9,14 +9,14 @@ const { addToken, isValid } = require('../utils/tokenStore');
 
 router.post('/register', async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
     // Create new user
-    const user = await User.create({ username, email, password });
+    const user = await User.create({ username, email, password, role });
 
     // Generate JWT token
     const token = jwt.sign(

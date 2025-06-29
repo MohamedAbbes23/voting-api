@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const pollRoutes = require('./routes/polls');
+const authRoutes = require('./routes/auth');
 
 dotenv.config();
 
@@ -8,8 +10,9 @@ const app = express();
 
 app.use(express.json());
 
-const authRoutes = require('./routes/auth');
+
 app.use('/api/auth', authRoutes);
+app.use('/api/polls', pollRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -20,3 +23,5 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
