@@ -4,7 +4,6 @@ const Poll = require('../models/Poll');
 const { authenticate } = require('../middleware/authMiddleware');
 const { checkRole } = require('../middleware/roleMiddleware');
 
-// POST /api/polls → Admin creates poll
 router.post('/', authenticate, checkRole('admin'), async (req, res) => {
   try {
     const { question, options } = req.body;
@@ -21,7 +20,6 @@ router.post('/', authenticate, checkRole('admin'), async (req, res) => {
   }
 });
 
-// GET /api/polls → Get all polls
 router.get('/', async (req, res) => {
   try {
     const polls = await Poll.find().populate('createdBy', 'username');
