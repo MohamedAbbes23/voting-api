@@ -3,6 +3,7 @@ const router = express.Router();
 const Poll = require('../models/Poll');
 const { authenticate } = require('../middleware/authMiddleware');
 const { checkRole } = require('../middleware/roleMiddleware');
+const { voteOnPoll, getPollResults, endPoll } = require('../controllers/pollController');
 
 router.post('/', authenticate, checkRole('admin'), async (req, res) => {
   try {
@@ -59,5 +60,9 @@ router.delete('/:id', authenticate, async (req, res) => {
     res.status(500).json({ message: 'Error deleting poll' });
   }
 });
+
+router.post('/:id/vote', authenticate, voteOnPoll);
+router.get('/:id/results', authenticate, getPollResults);
+router.patch('/:id/end', authenticate, checkRole('admin'), endPoll);
 
 module.exports = router;
